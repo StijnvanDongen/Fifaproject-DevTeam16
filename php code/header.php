@@ -14,7 +14,9 @@
     <nav>
         <a href="index.php"><img src="./images/logo.png" alt="" height="5%" width="5%"></a>
         <a href="index.php">Home</a>
-        <a href="">Team aanmaken</a>
+        <a href="add_Team.php">Team aanmaken</a>
+        <a href="register.php">Registreren</a>
+        <a href="login.php">Inloggen</a>
         <a href="download.php">Download C#</a>
     </nav>
 </header>
