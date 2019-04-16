@@ -55,6 +55,14 @@
         * {
             background-color: #0078d7;
         }
+        .form-group{
+            color: black;
+            padding: 10px;
+
+        }
+        input{
+            background-color: white;
+        }
 
     </style>
 </head>
