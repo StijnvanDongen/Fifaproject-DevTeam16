@@ -13,7 +13,7 @@ require "config2.php";
         $name = $team['teamName'];
         $id = $team['id'];
 
-        echo "<li><a href='detail.php?$id'>$name</a></li>";
+        echo "<li><a href='detail.php?id=$id'>$name</a></li>";
 
     }
     echo "</ul>";

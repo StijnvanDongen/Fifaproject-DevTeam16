@@ -9,9 +9,9 @@
 require "config2.php";
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM teams WHERE ID = {$id}";
+$sql = "SELECT * FROM teams WHERE id = $id";
 $query = $db->query($sql);
-$team = $query->fetchAll(PDO::FETCH_ASSOC);
+$team = $query->fetch(PDO::FETCH_ASSOC);
 ?>
 
-<h1><?php echo $team['teamName'] ?></h1>;
+<h1><?php echo $team['teamName'] ?></h1>
