@@ -15,8 +15,9 @@ require 'header.php';
     foreach ($teams as $team){
 
         $name = $team['teamName'];
+        $id = $team['id'];
 
-        echo "<li>$name</li>";
+        echo "<li><a href='detail.php?id=$id'>$name</a></li>";
 
     }
     echo "</ul>";
