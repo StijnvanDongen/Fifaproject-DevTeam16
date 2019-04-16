@@ -1,23 +1,20 @@
 <?php
 require "config2.php";
 
-
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    die;
-
-} else if ($_SERVER['REQUEST_METHOD'] == "GET"){
-    // via get request
-
     $sql = "SELECT * FROM teams";
     $query = $db->query($sql);
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
 
-//    echo json_encode($teams);
+    echo "<h1>hier onder zie je een lijst met alle teams</h1>";
+    echo "<ul>";
+
     foreach ($teams as $team){
 
-        echo $team;
+        $name = $team['teamName'];
+
+        echo "<li>$name</li>";
 
     }
+    echo "</ul>";
 
-}
 
