@@ -11,8 +11,9 @@ require "config2.php";
     foreach ($teams as $team){
 
         $name = $team['teamName'];
+        $id = $team['id'];
 
-        echo "<li>$name</li>";
+        echo "<li><a href='detail.php?$id'>$name</a></li>";
 
     }
     echo "</ul>";
