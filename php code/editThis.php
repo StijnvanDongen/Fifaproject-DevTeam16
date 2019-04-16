@@ -1,4 +1,5 @@
 <?php
+require 'header.php';
 require "config2.php";
 $id = $_GET['id'];
 

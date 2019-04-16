@@ -1,4 +1,6 @@
-<?php require "config2.php";
+<?php
+require "config2.php";
+require 'header.php';
 
 if (!isset($_SESSION['id'])){
     header('location: index.php');
@@ -18,11 +20,11 @@ if ($user['admin'] != 1){
 }
 
 ?>
-
-    <h1>admin page</h1>
-    <p>jij bent geregistreerd als een admin dus hier kan jij alle teams zien en jij kan de ook verwijderen</p>
-    <h2>DEZE ACTIE KAN NIET TERUG GEDRAAID WORDEN!!!</h2>
-
+    <div class="container">
+        <h1>admin page</h1>
+        <p>jij bent geregistreerd als een admin dus hier kan jij alle teams zien en jij kan de ook verwijderen</p>
+        <h2>DEZE ACTIE KAN NIET TERUG GEDRAAID WORDEN!!!</h2>
+    </div>
 <?php
 
 $sql = "SELECT * FROM teams";

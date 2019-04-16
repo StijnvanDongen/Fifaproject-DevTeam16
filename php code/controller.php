@@ -17,8 +17,7 @@ if ($_POST['type'] == 'create') {
     $player11 = trim($_POST['player11']);
     $madeBy = trim($_SESSION['id']);
 
-    if($teamName != "" || $player1 != "" || $player2 != "" || $player3 != "" || $player4 != "" || $player5 != "" || $player6 != "" || $player7 != "" || $player8 != "" || $player9 != "" || $player10 != "" || $player11 != "" || $madeBy != "")
-    {
+    if ($teamName != "" || $player1 != "" || $player2 != "" || $player3 != "" || $player4 != "" || $player5 != "" || $player6 != "" || $player7 != "" || $player8 != "" || $player9 != "" || $player10 != "" || $player11 != "" || $madeBy != "") {
         $sql = "INSERT INTO teams (teamName, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, madeBy)
         VALUES  (:teamName, :player1, :player2, :player3, :player4, :player5, :player6, :player7, :player8, :player9, :player10, :player11, :madeBy)";
         $prepare = $db->prepare($sql);
@@ -57,7 +56,7 @@ if ($_POST['type'] == 'register') {
 
     $uppercase = preg_match('@[A-Z]@', $password1);
     $lowercase = preg_match('@[a-z]@', $password1);
-    $number    = preg_match('@[0-9]@', $password1);
+    $number = preg_match('@[0-9]@', $password1);
 
     $user_check_query = $db->prepare("SELECT * FROM users WHERE email=?");
     $user_check_query->execute([$email]);
@@ -72,16 +71,12 @@ if ($_POST['type'] == 'register') {
         </script>
         <?php
 
-    }
-    else
-    {
+    } else {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             echo("$email is not a valid email address");
 
-        }
-        else
-        {
+        } else {
             if ($password1 === $password2) {
 
                 if (!$uppercase || !$lowercase || !$number || strlen($password1) < 8) {
@@ -151,14 +146,13 @@ if ($_POST['type'] == 'login') {
 
             $hashedPassword = $account['password'];
 
-            if (password_verify($password, $storedPassword)){
+            if (password_verify($password, $storedPassword)) {
                 // everything is oke
 
                 $id = $account['id'];
                 $_SESSION['id'] = $username;
-                header( 'location: addTeam.php');
-            }
-            else {
+                header('location: addTeam.php');
+            } else {
                 ?>
                 <script type="text/javascript">
                     alert("Wrong password!");

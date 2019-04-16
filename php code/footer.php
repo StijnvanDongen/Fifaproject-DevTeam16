@@ -1,4 +1,5 @@
 <?php
+require 'header.php';
 ?>
 
 <footer>

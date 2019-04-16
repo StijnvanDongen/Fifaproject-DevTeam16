@@ -1,4 +1,5 @@
 <?php
+require 'header.php';
 require 'config2.php';
 $sql = "SELECT * FROM teams";
 $query = $db->query($sql);
@@ -20,7 +21,7 @@ $teams = $query->fetchAll(PDO::FETCH_ASSOC);
         alert(<?php foreach($teams as $team){
                 $password1 = htmlentities($team['password']);
 
-                echo "{$team['password']}"
+                echo "{$team['password']}";
 
                 } ?>);
         window.location.href = "index.php";

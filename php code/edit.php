@@ -1,10 +1,12 @@
-<?php require "config2.php";
+<?php
+require "config2.php";
+require 'header.php';
 
 ?>
-
-<h1>hier kunt u een team kiezen dat u wilt aanpassen</h1>
-<p>hier ziet u al uw aangemaakte teams</p>
-
+<div class="container">
+    <h1>hier kunt u een team kiezen dat u wilt aanpassen</h1>
+    <p>hier ziet u al uw aangemaakte teams</p>
+</div>
 <?php
 
 $madeBy = $_SESSION['id'];
