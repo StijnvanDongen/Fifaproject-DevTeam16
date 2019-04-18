@@ -13,7 +13,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($teams);
-
-
 }
-
