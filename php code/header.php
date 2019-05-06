@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="css/header.css">
     <title>Fifa Dev-Team 16</title>
 </head>
+<body>
 <header>
-        <img src="./images/logo.png" alt="" height="3%" width="3%">
+        <img src="./images/logo.png" alt="" height="100px" width="100px">
         <nav class="flex">
             <a href="index.php">Home</a> <br>
             <a href="addTeam.php">Team aanmaken (logged-in users only)</a> <br>
@@ -24,8 +25,4 @@
             <a href="edit.php">Edit existing team (logged-in users only)</a> <br>
         </nav>
 </header>
-<body>
-
-
-
-
+<main>
