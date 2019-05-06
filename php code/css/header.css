@@ -33,3 +33,8 @@ footer {
     border-top: #0076be 5px solid;
     padding-bottom: 1px;
 }
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
