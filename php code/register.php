@@ -33,7 +33,9 @@ require "header.php";
         <!--        <span>I agree with the <a href="tac.html">Terms And Conditions.</a></span>-->
         <!--    </label>-->
 
-        <input type="submit" value="Register" class="submit">
+        <div class="form-group-buttons">
+            <input class="button" type="submit" value="Register" class="submit">
+        </div>
 
     </form>
 

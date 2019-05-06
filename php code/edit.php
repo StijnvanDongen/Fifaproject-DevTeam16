@@ -2,6 +2,11 @@
 require "config2.php";
 require "header.php";
 
+if (!isset($_SESSION['id'])){
+    header('location: login.php');
+    exit;
+}
+
 ?>
 
     <h1>hier kunt u een team kiezen dat u wilt aanpassen</h1>

@@ -4,7 +4,7 @@
     align-items: center;
 }
 
-.flex a {
+.button {
     background: whitesmoke;
     padding: 12px;
     margin: 9px;
@@ -19,6 +19,7 @@ body {
     display: grid;
     grid-template-rows: 75px 1fr 50px;
     margin: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
 header {
@@ -37,4 +38,9 @@ footer {
 .container {
     width: 1000px;
     margin: 0 auto;
+}
+
+.form-group-buttons {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
