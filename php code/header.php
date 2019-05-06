@@ -17,8 +17,14 @@
         <img src="./images/logo.png" alt="" height="75px" width="75px">
         <nav class="flex">
             <a class="button" href="index.php">Home</a> <br>
-            <a class="button" href="register.php">Registreren</a> <br>
-            <a class="button" href="login.php">Inloggen</a> <br>
+            <?php
+                if ( !isset($_SESSION['id']) ) {
+                    echo "
+                        <a class=\"button\" href=\"register.php\">Registreren</a> <br>
+                        <a class=\"button\" href=\"login.php\">Inloggen</a> <br>        
+                    ";
+                }
+            ?>
             <a class="button" href="download.php">Download C#</a> <br>
             <a class="button" href="list.php">List (public)</a> <br>
             <?php
