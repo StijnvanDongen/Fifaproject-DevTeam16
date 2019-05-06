@@ -13,7 +13,7 @@
 </head>
 <body>
 <header>
-        <img src="./images/logo.png" alt="" height="100px" width="100px">
+        <img src="./images/logo.png" alt="" height="75px" width="75px">
         <nav class="flex">
             <a href="index.php">Home</a> <br>
             <a href="addTeam.php">Team aanmaken (logged-in users only)</a> <br>
