@@ -1,0 +1,24 @@
+.flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.flex a {
+    background: whitesmoke;
+    padding: 12px;
+    margin: 9px;
+    font-size: 16px;
+    text-decoration: none;
+    border: 1px black solid;
+    border-radius: 6px;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    background: #00adef;
+    margin: -8px;
+    margin-bottom: 8px;
+    border-bottom: #0076be 5px solid;
+}

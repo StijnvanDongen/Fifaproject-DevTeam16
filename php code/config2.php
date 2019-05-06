@@ -1,9 +1,9 @@
 <?php session_start();
 
 $dbHost = "localhost";
-$dbName = "fifa";
-$dbUser = "root";
-$dbPass = "";
+$dbName = "mennove_fifa";
+$dbUser = "mennove_fifa";
+$dbPass = "hu0nter0";
 
 // dit zorgt dat je de error berichten goed tezien krijgt
 

@@ -1,5 +1,7 @@
 <?php
 require "config2.php";
+require "header.php";
+
 $id = $_GET['id'];
 
 $sql = "SELECT * FROM teams WHERE id = :id";
@@ -83,3 +85,5 @@ $team = $prepare->fetch(PDO::FETCH_ASSOC);
     </form>
 
 <?php
+
+require "footer.php";

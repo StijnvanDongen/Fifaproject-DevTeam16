@@ -1,9 +1,11 @@
-<?php require "config2.php";
+<?php
+require "config2.php";
+require "header.php";
 
 ?>
 
-<h1>hier kunt u een team kiezen dat u wilt aanpassen</h1>
-<p>hier ziet u al uw aangemaakte teams</p>
+    <h1>hier kunt u een team kiezen dat u wilt aanpassen</h1>
+    <p>hier ziet u al uw aangemaakte teams</p>
 
 <?php
 
@@ -22,10 +24,12 @@ foreach ($teams as $team){
 
     <li><a href="editThis.php?id=<?=$id?>"><?=$name?></a></li>
 
-<?php
+    <?php
 }
 
 echo "</ul>";
+
+require "footer.php";
 
 
 

@@ -1,4 +1,5 @@
 <?php require "config2.php";
+require "header.php";
 
 if (!isset($_SESSION['id'])){
     header('location: index.php');
@@ -37,13 +38,14 @@ foreach ($teams as $team){
     ?>
 
     <li>
-    <form action="controller.php?id=<?=$id;?>" method="post">
-        <input type="hidden" name="type" value="delete">
-        <input type="submit" value="Delete <?=$name?>!">
-    </form>
+        <form action="controller.php?id=<?=$id;?>" method="post">
+            <input type="hidden" name="type" value="delete">
+            <input type="submit" value="Delete <?=$name?>!">
+        </form>
     </li>
 
     <?php
 }
 
 echo "</ul>";
+require "footer.php";
