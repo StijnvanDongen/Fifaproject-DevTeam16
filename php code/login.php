@@ -1,8 +1,7 @@
 <?php
-require 'header.php';
-
+require "header.php";
 ?>
-<div class="container">
+
     <h2>Login</h2>
 
     <form action="controller.php" method="post">
@@ -24,4 +23,6 @@ require 'header.php';
 
         <input type="submit" value="login">
     </form>
-</div>
+    <a href="resetpassword.php">reset my password</a>
+
+<?php require "footer.php";

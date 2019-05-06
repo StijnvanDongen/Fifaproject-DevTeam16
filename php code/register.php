@@ -1,7 +1,7 @@
 <?php
-require 'header.php';
+require "header.php";
 ?>
-<div class="container">
+
     <h2>Register.</h2>
 
     <form action="controller.php" method="post">
@@ -28,7 +28,13 @@ require 'header.php';
             <input type="password" name="password_confirm" id="password_confirm" class="inputField" required>
         </div>
 
+        <!--    <label class="container">-->
+        <!--        <input type="checkbox" required>-->
+        <!--        <span>I agree with the <a href="tac.html">Terms And Conditions.</a></span>-->
+        <!--    </label>-->
+
         <input type="submit" value="Register" class="submit">
 
     </form>
-</div>
+
+<?php require "footer.php";

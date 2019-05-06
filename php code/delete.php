@@ -1,6 +1,5 @@
-<?php
-require "config2.php";
-require 'header.php';
+<?php require "config2.php";
+require "header.php";
 
 if (!isset($_SESSION['id'])){
     header('location: index.php');
@@ -20,11 +19,11 @@ if ($user['admin'] != 1){
 }
 
 ?>
-    <div class="container">
-        <h1>admin page</h1>
-        <p>jij bent geregistreerd als een admin dus hier kan jij alle teams zien en jij kan de ook verwijderen</p>
-        <h2>DEZE ACTIE KAN NIET TERUG GEDRAAID WORDEN!!!</h2>
-    </div>
+
+    <h1>admin page</h1>
+    <p>jij bent geregistreerd als een admin dus hier kan jij alle teams zien en jij kan de ook verwijderen</p>
+    <h2>DEZE ACTIE KAN NIET TERUG GEDRAAID WORDEN!!!</h2>
+
 <?php
 
 $sql = "SELECT * FROM teams";
@@ -39,13 +38,14 @@ foreach ($teams as $team){
     ?>
 
     <li>
-    <form action="controller.php?id=<?=$id;?>" method="post">
-        <input type="hidden" name="type" value="delete">
-        <input type="submit" value="Delete <?=$name?>!">
-    </form>
+        <form action="controller.php?id=<?=$id;?>" method="post">
+            <input type="hidden" name="type" value="delete">
+            <input type="submit" value="Delete <?=$name?>!">
+        </form>
     </li>
 
     <?php
 }
 
 echo "</ul>";
+require "footer.php";

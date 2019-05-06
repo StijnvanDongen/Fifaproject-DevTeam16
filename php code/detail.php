@@ -7,13 +7,14 @@
  */
 
 require "config2.php";
+require "header.php";
 
 $id = $_GET['id'];
 $sql = "SELECT * FROM teams WHERE id = $id";
 $query = $db->query($sql);
 $team = $query->fetch(PDO::FETCH_ASSOC);
 ?>
-<div class="container">
+
     <h1><?php echo $team['teamName'] ?></h1>
     <ul>
         <li><?php echo $team['player1']?></li>
@@ -28,4 +29,5 @@ $team = $query->fetch(PDO::FETCH_ASSOC);
         <li><?php echo $team['player10']?></li>
         <li><?php echo $team['player11']?></li>
     </ul>
-</div>
+
+<?php require "footer.php";
