@@ -73,7 +73,7 @@ if (!isset($_SESSION['id'])){
             <input type="text" name="player11" id="player11" required>
         </div>
 
-        <input type="submit" value="Add this team!">
+        <input class="button" type="submit" value="Add this team!">
 
     </form>
 

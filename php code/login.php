@@ -21,8 +21,10 @@ require "header.php";
             <input type="password" name="password" id="password" class="inputField">
         </div>
 
-        <input type="submit" value="login">
+        <div class="form-group-buttons">
+            <input class="button" type="submit" value="login">
+            <a class="button" href="resetpassword.php">reset my password</a>
+        </div>
     </form>
-    <a href="resetpassword.php">reset my password</a>
 
 <?php require "footer.php";

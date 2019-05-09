@@ -2,7 +2,7 @@
 require "header.php";
 
 if (!isset($_SESSION['id'])){
-    header('location: index.php');
+    header('location: login.php');
     exit;
 }
 
@@ -15,7 +15,6 @@ $user = $prepare->fetch(PDO::FETCH_ASSOC);
 
 if ($user['admin'] != 1){
     header('location: index.php');
-    exit;
 }
 
 ?>
