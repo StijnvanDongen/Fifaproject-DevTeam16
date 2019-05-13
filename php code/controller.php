@@ -229,6 +229,9 @@ if ( $_POST['type'] == 'logout' ) {
 
 if ( $_POST['type'] == 'makeWedstrijdschema' ) {
 
+    $sql = "DELETE FROM wedstrijden";
+    $query = $db->query($sql);
+
     $sql = "SELECT * FROM teams";
     $query = $db->query($sql);
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -250,5 +253,5 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
         }
     }
 
-    header("Location: index.php");
+    header("Location: list.php");
 }
