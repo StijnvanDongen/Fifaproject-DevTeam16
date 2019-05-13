@@ -13,7 +13,7 @@ foreach ($teams as $team){
 
     $name = $team['teamName'];
 
-    echo "<li>$name</li>";
+    echo "<li><div><a href='detail.php?id={$team['id']}'><div>{$team['teamName']}</a></div></li>";
 
 }
 echo "</ul>";
