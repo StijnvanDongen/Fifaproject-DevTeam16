@@ -16,6 +16,12 @@ foreach ($teams as $team){
     echo "<li><div><a href='detail.php?id={$team['id']}'><div>{$team['teamName']}</a></div></li>";
 
 }
-echo "</ul>";
+echo "
+    </ul>
+    <form action=\"controller.php\" method=\"post\">
+        <input type=\"hidden\" name=\"type\" value=\"makeWedstrijdschema\">
+        <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">
+    </form>         
+";
 
 require "footer.php";

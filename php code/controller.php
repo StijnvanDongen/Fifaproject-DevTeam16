@@ -226,3 +226,29 @@ if ( $_POST['type'] == 'logout' ) {
     unset($_SESSION['id']);
     header("Location: index.php");
 }
+
+if ( $_POST['type'] == 'makeWedstrijdschema' ) {
+
+    $sql = "SELECT * FROM teams";
+    $query = $db->query($sql);
+    $teams = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $teamsAmount = count($teams);
+    $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
+
+    for ( $i = 0; $i < $wedstrijdAmount; $i++ ) {
+        $team1 = $teams[$i]['id'];
+        for ( $x = $i + 1; $x < $teamsAmount; $x++ ) {
+            $team2 = $teams[$x]['id'];
+
+            $sql = "INSERT INTO wedstrijden (team1, team2) VALUES (:team1, :team2)";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':team1' => $team1,
+                ':team2' => $team2
+            ]);
+        }
+    }
+
+    header("Location: index.php");
+}
