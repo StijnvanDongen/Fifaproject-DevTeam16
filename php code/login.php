@@ -6,10 +6,6 @@ require "header.php";
 
     <form action="controller.php" method="post">
         <input type="hidden" name="type" value="login">
-        <div class="form-group">
-            <p>Email.</p>
-            <input type="email" name="email" id="email" class="inputField">
-        </div>
 
         <div class="form-group">
             <p>Username.</p>

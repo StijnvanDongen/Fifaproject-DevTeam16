@@ -4,38 +4,16 @@ require 'config2.php';
 if ($_POST['type'] == 'create') {
 
     $teamName = trim($_POST['teamName']);
-    $player1 = trim($_POST['player1']);
-    $player2 = trim($_POST['player2']);
-    $player3 = trim($_POST['player3']);
-    $player4 = trim($_POST['player4']);
-    $player5 = trim($_POST['player5']);
-    $player6 = trim($_POST['player6']);
-    $player7 = trim($_POST['player7']);
-    $player8 = trim($_POST['player8']);
-    $player9 = trim($_POST['player9']);
-    $player10 = trim($_POST['player10']);
-    $player11 = trim($_POST['player11']);
     $madeBy = trim($_SESSION['id']);
 
-    if($teamName != "" || $player1 != "" || $player2 != "" || $player3 != "" || $player4 != "" || $player5 != "" || $player6 != "" || $player7 != "" || $player8 != "" || $player9 != "" || $player10 != "" || $player11 != "" || $madeBy != "")
+    if($teamName != "" || $madeBy != "")
     {
-        $sql = "INSERT INTO teams (teamName, player1, player2, player3, player4, player5, player6, player7, player8, player9, player10, player11, madeBy)
-        VALUES  (:teamName, :player1, :player2, :player3, :player4, :player5, :player6, :player7, :player8, :player9, :player10, :player11, :madeBy)";
+        $sql = "INSERT INTO teams (teamName, madeBy)
+        VALUES  (:teamName, :madeBy)";
         $prepare = $db->prepare($sql);
         $prepare->execute([
             ':teamName' => $teamName,
-            ':player1' => $player1,
-            ':player2' => $player2,
-            ':player3' => $player3,
-            ':player4' => $player4,
-            ':player5' => $player5,
-            ':player6' => $player6,
-            ':player7' => $player7,
-            ':player8' => $player8,
-            ':player9' => $player9,
-            ':player10' => $player10,
-            ':player11' => $player11,
-            ':madeBy' => $madeBy,
+            ':madeBy' => $madeBy
         ]);
 
         $msg = "Team Is Succesvol Toegevoegd!";
@@ -128,20 +106,19 @@ if ($_POST['type'] == 'login') {
 
     require 'config2.php';
 
-    $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $user_login_email_check_query = $db->prepare("SELECT * FROM users WHERE email=?");
-    $user_login_email_check_query->execute([$email]);
+    $user_login_email_check_query = $db->prepare("SELECT * FROM users WHERE userName=?");
+    $user_login_email_check_query->execute([$username]);
     $account = $user_login_email_check_query->fetch();
     if ($account) {
         // email has been found
 
-        $sql = "SELECT * FROM users WHERE email = :email";
+        $sql = "SELECT * FROM users WHERE userName = :userName";
         $prepare = $db->prepare($sql);
         $prepare->execute([
-            ':email' => $email
+            ':userName' => $username
         ]);
         $account = $prepare->fetch(PDO::FETCH_ASSOC);
 
@@ -212,56 +189,22 @@ if($_POST['type'] == 'editpwd'){
 if ($_POST['type'] == 'edit') {
 
     $teamName = trim($_POST['teamName']);
-    $player1 = trim($_POST['player1']);
-    $player2 = trim($_POST['player2']);
-    $player3 = trim($_POST['player3']);
-    $player4 = trim($_POST['player4']);
-    $player5 = trim($_POST['player5']);
-    $player6 = trim($_POST['player6']);
-    $player7 = trim($_POST['player7']);
-    $player8 = trim($_POST['player8']);
-    $player9 = trim($_POST['player9']);
-    $player10 = trim($_POST['player10']);
-    $player11 = trim($_POST['player11']);
     $madeBy = trim($_SESSION['id']);
     $id = $_GET['id'];
 
     $sql = "UPDATE teams 
             SET
             teamName = :teamName,
-            player1 = :player1,
-            player2 = :player2,
-            player3 = :player3,
-            player4 = :player4,
-            player5 = :player5,
-            player6 = :player6,
-            player7 = :player7,
-            player8 = :player8,
-            player9 = :player9,
-            player10 = :player10,
-            player11 = :player11,
             madeBy = :madeBy
             WHERE id = $id";
     $prepare = $db->prepare($sql);
     $prepare->execute([
         ':teamName' => $teamName,
-        ':player1' => $player1,
-        ':player2' => $player2,
-        ':player3' => $player3,
-        ':player4' => $player4,
-        ':player5' => $player5,
-        ':player6' => $player6,
-        ':player7' => $player7,
-        ':player8' => $player8,
-        ':player9' => $player9,
-        ':player10' => $player10,
-        ':player11' => $player11,
         ':madeBy' => $madeBy,
     ]);
 
     $msg = "Het Item Is Succesvol Aangepast!";
     header("location: index.php?msg=$msg");
-
 }
 
 if ($_POST['type'] == 'delete') {
