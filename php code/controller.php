@@ -219,3 +219,10 @@ if ($_POST['type'] == 'delete') {
     header("location: index.php?msg=$msg");
     exit;
 }
+
+
+
+if ( $_POST['type'] == 'logout' ) {
+    unset($_SESSION['id']);
+    header("Location: index.php");
+}
