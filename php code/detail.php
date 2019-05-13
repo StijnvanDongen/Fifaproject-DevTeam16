@@ -16,6 +16,5 @@ $team = $query->fetch(PDO::FETCH_ASSOC);
 ?>
 
     <h1><?php echo $team['teamName'] ?></h1>
-    
 
 <?php require "footer.php";
