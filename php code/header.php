@@ -34,6 +34,10 @@
                         <a class=\"button\" href=\"delete.php\">Delete team (admin only)</a> <br>
                         <a class=\"button\" href=\"addTeam.php\">Team aanmaken (logged-in users only)</a> <br>
                         <a class=\"button\" href=\"edit.php\">Edit existing team (logged-in users only)</a> <br>
+                        <form action=\"controller.php\" method=\"post\">
+                            <input type=\"hidden\" name=\"type\" value=\"logout\">
+                            <input class=\"nav-item\" type=\"submit\" value=\"Log Out\">
+                        </form>
                     ";
                 }
             ?>
