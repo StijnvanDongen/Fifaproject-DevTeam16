@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Floris
- * Date: 13-5-2019
- * Time: 11:25
- */
+require "config2.php";
+require "header.php";
+
+
+
+require "footer.php";
