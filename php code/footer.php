@@ -1,5 +1,4 @@
 <?php
-require "./css/header.css";
 ?>
     </div>
 </main>
