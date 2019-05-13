@@ -18,10 +18,14 @@ foreach ($teams as $team){
 }
 echo "
     </ul>
+    <div class=\"wedstrijdschema\">
     <form action=\"controller.php\" method=\"post\">
         <input type=\"hidden\" name=\"type\" value=\"makeWedstrijdschema\">
         <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">
-    </form>         
+    </form> 
+    <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a> <br>   
+    </div>     
 ";
+
 
 require "footer.php";
