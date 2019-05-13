@@ -253,5 +253,5 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
         }
     }
 
-    header("Location: list.php");
+    header("Location: bracket.php");
 }
