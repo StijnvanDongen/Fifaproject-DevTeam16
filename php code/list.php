@@ -6,7 +6,7 @@ $sql = "SELECT * FROM teams";
 $query = $db->query($sql);
 $teams = $query->fetchAll(PDO::FETCH_ASSOC);
 
-echo "<h1>hier onder zie je een lijst met alle teams</h1>";
+echo "<h2>hier onder zie je een lijst met alle teams</h2>";
 echo "<ul>";
 
 foreach ($teams as $team){
