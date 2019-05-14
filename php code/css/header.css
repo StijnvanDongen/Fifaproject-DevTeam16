@@ -50,6 +50,6 @@ footer {
     padding-bottom: 10px;
 }
 
-.wedstrijdschema a{
-    margin-top: 1em;
+.wedstrijdschema {
+    display: flex;
 }
