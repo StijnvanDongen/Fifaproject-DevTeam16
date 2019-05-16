@@ -255,3 +255,17 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
 
     header("Location: bracket.php");
 }
+
+if ( $_POST['type'] == 'addUserToTeam' ) {
+    $id = $_GET['id'];
+    $user = $_POST['spelers'];
+
+    $sql = "UPDATE users SET teamId = :teamId WHERE userName = :user";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':teamId' => $id,
+        ':user' => $user
+    ]);
+
+    header("Location: detail.php?id=$id");
+}

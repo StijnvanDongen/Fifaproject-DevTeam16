@@ -10,26 +10,18 @@ $prepare->execute([
     ':id' => $id,
 ]);
 $team = $prepare->fetch(PDO::FETCH_ASSOC);
-
-
-
 ?>
 
     <div class="container">
         <h2>Edit This Team!</h2>
 
         <form action="controller.php?id=<?=$id?>" method="post">
-
             <input type="hidden" name="type" value="edit">
-
-        <input type="submit" value="Submit">
-            </div>
-                <input type="text" name="teamName" id="teamName" value="<?= $team['teamName']?>">
-                <label for="teamName">Team Name</label>
             <div>
-
-    </form>
-
+                <label for="teamName">Team Name: </label>
+                <input type="text" name="teamName" id="teamName" value="<?= $team['teamName']?>">
+            </div>
+            <input type="submit" value="Submit">
         </form>
     </div>
 <?php

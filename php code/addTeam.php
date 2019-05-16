@@ -6,6 +6,10 @@ if (!isset($_SESSION['id'])){
     exit;
 }
 
+$sql = "SELECT * FROM users";
+$query = $db->query($sql);
+$spelers = $query->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
