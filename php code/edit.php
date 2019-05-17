@@ -20,7 +20,7 @@ $sql = $db->prepare("SELECT * FROM teams WHERE madeBy=?");
 $sql->execute([$madeBy]);
 $teams = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-echo "<ul>";
+echo "<ul class=\"list\">";
 
 foreach ($teams as $team){
     $id = $team['id'];

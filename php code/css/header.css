@@ -53,3 +53,23 @@ footer {
 .wedstrijdschema {
     display: flex;
 }
+
+.list li {
+    list-style: none;
+    border-bottom: #0076be 2px solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.list li:last-child {
+    border-bottom: none;
+}
+
+.del-item {
+    display: flex;
+    align-items: center;
+}
+
+.del-item form {
+    padding-left: 10px;
+}

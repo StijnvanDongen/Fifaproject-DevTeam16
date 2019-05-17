@@ -29,14 +29,15 @@ $sql = "SELECT * FROM teams";
 $query = $db->query($sql);
 $teams = $query->fetchAll(PDO::FETCH_ASSOC);
 
-echo "<ul>";
+echo "<ul class=\"list\">";
 
 foreach ($teams as $team){
     $id = $team['id'];
     $name = $team['teamName'];
     ?>
 
-    <li>
+    <li class="del-item">
+        <p><?=$name?></p>
         <form action="controller.php?id=<?=$id;?>" method="post">
             <input type="hidden" name="type" value="delete">
             <input type="submit" value="Delete <?=$name?>!">
