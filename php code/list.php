@@ -24,22 +24,23 @@ echo "
             
             <div class='tijd-input'>
                 <label for=\"tijd\">Wedstrijd Tijd: </label>
-                <input type=\"time\" name=\"tijd\" id=\"tijd\">
+                <input type=\"number\" name=\"tijd\" id=\"tijd\">
             </div>
             
             <div class='tijd-input'>
-                <label for=\"rusttijdens\">Rust Tijd (Tijdens Wedstrijd): </label>
-                <input type=\"time\" name=\"rusttijdens\" id=\"rusttijdens\">
+                <label for=\"rusttijdens\">Rust Tijd: </label>
+                <input type=\"number\" name=\"rusttijdens\" id=\"rusttijdens\">
             </div>
             
             <div class='tijd-input'>
-                <label for=\"rustna\">Rust Tijd (Na Wedstrijden): </label>
-                <input type=\"time\" name=\"rustna\" id=\"rustna\">
+                <label for=\"rustna\">Pauze tussen Wedstrijden: </label>
+                <input type=\"number\" name=\"rustna\" id=\"rustna\">
             </div>
             
             <div class='tijd-input'>
                 <label for=\"start\">Start Tijd: </label>
-                <input type=\"time\" name=\"start\" id=\"start\">
+                <input type=\"number\" name=\"startH\" id=\"startH\">
+                <input type=\"number\" name=\"startM\" id=\"startM\">
             </div>
             
             <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">

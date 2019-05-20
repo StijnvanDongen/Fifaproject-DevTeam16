@@ -231,9 +231,10 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
     $tijd = $_POST['tijd'];
     $rusttijdens = $_POST['rusttijdens'];
     $rustna = $_POST['rustna'];
-    $start = $_POST['start'];
+    $startH = $_POST['startH'];
+    $startM = $_POST['startM'];
 
-    var_dump($start);
+    $start = ($startH * 60) + $startM;
 
     $sql = "DELETE FROM wedstrijden";
     $query = $db->query($sql);
@@ -260,7 +261,7 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
                 ':rust' => $rusttijdens
             ]);
 
-
+            $start = $start + $tijd + $rustna + $rusttijdens;
         }
     }
 
