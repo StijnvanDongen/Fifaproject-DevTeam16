@@ -1,20 +1,10 @@
 <?php
 require "config2.php";
 require "header.php";
-?>
-    <html>
-    <head>
 
-        <style>
-            .info{
-                margin-top: 10%;
-                font-size: 20px;
 
-            }
-        </style>
-    </head>
-<div class="container">
-        <div class="info">
+echo "<div class=\"container\">
+        <div class=\"info\">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa cupiditate doloribus eligendi eos error
                 et ex, expedita harum incidunt maxime molestiae nesciunt nostrum odit quae quis, quod, soluta vel
                 veniam.
@@ -40,5 +30,5 @@ require "header.php";
                 eaque enim eum eveniet excepturi ipsum iure minus non quam quasi unde velit? Deleniti, quis.
             </p>
         </div>
-</div>
-<?php require "footer.php";
+</div> ";
+require "footer.php";
