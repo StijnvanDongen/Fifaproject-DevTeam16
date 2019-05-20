@@ -1,11 +1,11 @@
 <?php
 require "config2.php";
-
+$key = $_GET['key'];
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     die;
 
-} else if ($_SERVER['REQUEST_METHOD'] == "GET"){
+} else if ($key == "RBUUo3AZDy" && $_SERVER['REQUEST_METHOD'] == "GET") {
     // via get request
 
     $sql = "SELECT * FROM teams";
@@ -13,6 +13,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode($teams);
-
-
 }
