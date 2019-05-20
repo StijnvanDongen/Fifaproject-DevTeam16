@@ -21,10 +21,31 @@ echo "
     <div class=\"wedstrijdschema\">
         <form action=\"controller.php\" method=\"post\">
             <input type=\"hidden\" name=\"type\" value=\"makeWedstrijdschema\">
+            
+            <div class='tijd-input'>
+                <label for=\"tijd\">Wedstrijd Tijd: </label>
+                <input type=\"time\" name=\"tijd\" id=\"tijd\">
+            </div>
+            
+            <div class='tijd-input'>
+                <label for=\"rusttijdens\">Rust Tijd (Tijdens Wedstrijd): </label>
+                <input type=\"time\" name=\"rusttijdens\" id=\"rusttijdens\">
+            </div>
+            
+            <div class='tijd-input'>
+                <label for=\"rustna\">Rust Tijd (Na Wedstrijden): </label>
+                <input type=\"time\" name=\"rustna\" id=\"rustna\">
+            </div>
+            
+            <div class='tijd-input'>
+                <label for=\"start\">Start Tijd: </label>
+                <input type=\"time\" name=\"start\" id=\"start\">
+            </div>
+            
             <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">
         </form> 
-        <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a> <br>   
     </div>     
+    <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a> <br>   
 ";
 
 

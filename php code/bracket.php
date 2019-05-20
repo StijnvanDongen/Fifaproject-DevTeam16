@@ -8,6 +8,8 @@ $sql = "SELECT * FROM wedstrijden";
 $query = $db->query($sql);
 $wedstrijden = $query->fetchAll(PDO::FETCH_ASSOC);
 
+echo"<li class='wedstrijd'><h4>Team 1:</h4><h4></h4><h4>Team 2:</h4><h4>Tijd:</h4></li>";
+
 foreach ($wedstrijden as $wedstrijd){
     $sql = "SELECT * FROM teams WHERE id = :id";
     $prepare = $db->prepare($sql);
@@ -23,7 +25,7 @@ foreach ($wedstrijden as $wedstrijd){
     ]);
     $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
 
-    echo "<li>{$team1['teamName']} vs {$team2['teamName']}</li>";
+    echo "<li class='wedstrijd'><p>{$team1['teamName']}</p><p> vs </p><p>{$team2['teamName']}</p><p></p></li>";
 
 }
 

@@ -78,3 +78,13 @@ footer {
     font-size: 20px;
 
 }
+
+.tijd-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wedstrijd {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}

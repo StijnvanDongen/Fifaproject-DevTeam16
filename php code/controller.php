@@ -228,6 +228,12 @@ if ( $_POST['type'] == 'logout' ) {
 }
 
 if ( $_POST['type'] == 'makeWedstrijdschema' ) {
+    $tijd = $_POST['tijd'];
+    $rusttijdens = $_POST['rusttijdens'];
+    $rustna = $_POST['rustna'];
+    $start = $_POST['start'];
+
+    var_dump($start);
 
     $sql = "DELETE FROM wedstrijden";
     $query = $db->query($sql);
@@ -244,12 +250,17 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
         for ( $x = $i + 1; $x < $teamsAmount; $x++ ) {
             $team2 = $teams[$x]['id'];
 
-            $sql = "INSERT INTO wedstrijden (team1, team2) VALUES (:team1, :team2)";
+            $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust) VALUES (:team1, :team2, :start, :tijd, :rust)";
             $prepare = $db->prepare($sql);
             $prepare->execute([
                 ':team1' => $team1,
-                ':team2' => $team2
+                ':team2' => $team2,
+                ':start' => $start,
+                ':tijd' => $tijd,
+                ':rust' => $rusttijdens
             ]);
+
+
         }
     }
 
