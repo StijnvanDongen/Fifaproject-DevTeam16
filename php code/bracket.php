@@ -36,6 +36,9 @@ foreach ($wedstrijden as $wedstrijd){
     if ( $wedstrijd['start'] > 60 ) {
         $min = $wedstrijd['start'] % 60;
         $hour = ($wedstrijd['start'] - $min) / 60;
+        if ( $hour >= 24 ) {
+            $hour = $hour - 24;
+        }
         if ( $min == 0 ) {
             $min = "00";
         }
