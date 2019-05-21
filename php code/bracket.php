@@ -33,18 +33,16 @@ foreach ($wedstrijden as $wedstrijd){
     ]);
     $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
 
-    if ( $wedstrijd['start'] > 60 ) {
-        $min = $wedstrijd['start'] % 60;
-        $hour = ($wedstrijd['start'] - $min) / 60;
-        if ( $hour >= 24 ) {
-            $hour = $hour - 24;
-            if ( $hour < 10 ) {
-                $hour = "0" . $hour;
-            }
-        }
-        if ( $min < 10 ) {
-            $min = $min . "0";
-        }
+    $min = $wedstrijd['start'] % 60;
+    $hour = ($wedstrijd['start'] - $min) / 60;
+    if ( $hour >= 24 ) {
+        $hour = $hour - 24;
+    }
+    if ( $hour < 10 ) {
+        $hour = "0" . $hour;
+    }
+    if ( $min < 10 ) {
+        $min = "0" . $min;
     }
 
     $name = $wedstrijd['id'];
