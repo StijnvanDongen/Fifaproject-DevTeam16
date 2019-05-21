@@ -233,6 +233,7 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
     $rustna = $_POST['rustna'];
     $startH = $_POST['startH'];
     $startM = $_POST['startM'];
+    $veldamount = $_POST['veld'];
 
     $start = ($startH * 60) + $startM;
 
@@ -246,26 +247,35 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
     $teamsAmount = count($teams);
     $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
 
+    $veld = 1;
+
     for ( $i = 0; $i < $wedstrijdAmount; $i++ ) {
         $team1 = $teams[$i]['id'];
         for ( $x = $i + 1; $x < $teamsAmount; $x++ ) {
             $team2 = $teams[$x]['id'];
 
-            $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust) VALUES (:team1, :team2, :start, :tijd, :rust)";
+            $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld) VALUES (:team1, :team2, :start, :tijd, :rust, :veld)";
             $prepare = $db->prepare($sql);
             $prepare->execute([
                 ':team1' => $team1,
                 ':team2' => $team2,
                 ':start' => $start,
                 ':tijd' => $tijd,
-                ':rust' => $rusttijdens
+                ':rust' => $rusttijdens,
+                ':veld' => $veld
             ]);
 
-            $start = $start + $tijd + $rustna + $rusttijdens;
+            if ( $veld == $veldamount ) {
+                $veld = 1;
+                $start = $start + $tijd + $rustna + $rusttijdens;
+            }
+            else {
+                $veld++;
+            }
         }
     }
 
-    header("Location: bracket.php");
+    header("Location: bracket.php?velden=$veldamount");
 }
 
 if ( $_POST['type'] == 'addUserToTeam' ) {

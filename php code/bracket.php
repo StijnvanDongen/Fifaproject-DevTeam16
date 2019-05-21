@@ -15,6 +15,7 @@ echo"<li class='wedstrijd'>
     <h4>Starttijd:</h4>
     <h4>Speeltijd:</h4>
     <h4>Rusttijd:</h4>
+    <h4>Veld:</h4>
 </li>";
 
 foreach ($wedstrijden as $wedstrijd){
@@ -40,6 +41,8 @@ foreach ($wedstrijden as $wedstrijd){
         }
     }
 
+    $name = $wedstrijd['id'];
+
     echo "<li class='wedstrijd'>
         <p>{$team1['teamName']}</p>
         <p> vs </p>
@@ -47,6 +50,7 @@ foreach ($wedstrijden as $wedstrijd){
         <p>{$hour}:{$min}</p>
         <p>{$wedstrijd['tijd']} min</p>
         <p>{$wedstrijd['rust']} min</p>
+        <p>Veld {$wedstrijd['veld']}</p>
     </li>";
 }
 

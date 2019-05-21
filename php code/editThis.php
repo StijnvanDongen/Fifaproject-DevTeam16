@@ -21,7 +21,7 @@ $team = $prepare->fetch(PDO::FETCH_ASSOC);
                 <label for="teamName">Team Name: </label>
                 <input type="text" name="teamName" id="teamName" value="<?= $team['teamName']?>">
             </div>
-            <input type="submit" value="Submit">
+            <input class="button" type="submit" value="Submit">
         </form>
     </div>
 <?php
