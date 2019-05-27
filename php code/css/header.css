@@ -73,6 +73,7 @@ footer {
 .del-item form {
     padding-left: 10px;
 }
+
 .info{
     margin-top: 10%;
     font-size: 20px;
@@ -90,26 +91,63 @@ footer {
     text-align: center;
     border-bottom: #0076be 2px solid;
 }
+
 .wedstrijd:last-child {
     border-bottom: none;
 }
+
 .tijd-input {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 .tijd-input2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 .wedstrijd-input input {
     width: 50px;
 }
+
 .input-naastelkaar {
     display: flex;
 }
+
 .input-naastelkaar input {
     width: 50px;
 }
+
 .velden .button {
     float: right;
 }
+
+.ForbiddenContainer {
+    width: auto;
+    margin: 0 auto;
+}
+
+.forbiddenCode {
+    font-size: 200px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+.forbiddenText {
+    font-size: 20px;
+    text-align: center;
+    margin-left: -60px;
+    margin-bottom: 100px;
+}
+
+.forbiddenButton {
+    border: 1px black solid;
+    align-items: center;
+    margin-left: 25%;
+    padding: 10px;
+    color: #fff;
+    background: #e60000;
+    font-size: 20px;
+}
+
