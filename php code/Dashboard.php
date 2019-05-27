@@ -21,7 +21,7 @@ $sql = "SELECT * FROM wedstrijden";
 $query = $db->query($sql);
 $wedstrijden = $query->fetchAll(PDO::FETCH_ASSOC);
 
-echo"<li class='wedstrijd'>
+echo"<li class='wedstrijden'>
     <h4>Team 1:</h4>
     <h4>vs</h4>
     <h4>Team 2:</h4>
@@ -43,7 +43,7 @@ foreach ($wedstrijden as $wedstrijd) {
     ]);
     $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
 
-    echo "<li class='wedstrijd'>
+    echo "<li class='wedstrijden'>
         <p>{$team1['teamName']}</p>
         <p> vs </p>
         <p>{$team2['teamName']}</p>
