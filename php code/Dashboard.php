@@ -21,6 +21,13 @@ $sql = "SELECT * FROM wedstrijden";
 $query = $db->query($sql);
 $wedstrijden = $query->fetchAll(PDO::FETCH_ASSOC);
 
+echo"<li class='wedstrijd'>
+    <h4>Team 1:</h4>
+    <h4>vs</h4>
+    <h4>Team 2:</h4>
+    </li>";
+
+
 foreach ($wedstrijden as $wedstrijd) {
     $sql = "SELECT * FROM teams WHERE id = :id";
     $prepare = $db->prepare($sql);
