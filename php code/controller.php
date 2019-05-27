@@ -1,4 +1,4 @@
-sp<?php
+<?php
 require 'config2.php';
 
 if ($_POST['type'] == 'create') {

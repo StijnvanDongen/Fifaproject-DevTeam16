@@ -4,17 +4,17 @@ require "header.php";
 
 if(!isset($_SESSION['id'])){
     echo'you are not logged in to see content.';
-}else{
-    $sql = "SELECT * FROM users where id = :id";
+}
+else{
+    $id = $_SESSION['id'];
+    $sql = "SELECT * FROM users WHERE userName = :id";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        ':id' => $_SESSION['id']
+        ':id' => $id
     ]);
-    $welcome = $prepare->fetch(PDO::FETCH_ASSOC);
+    $account = $prepare->fetch(PDO::FETCH_ASSOC);
 
-    var_dump($welcome);
-
-    echo "Welcome {$welcome['userName']}</br>";
+    echo "<h4>Welcome {$account['userName']}</h4>";
 }
 
 $sql = "SELECT * FROM wedstrijden";
@@ -40,6 +40,6 @@ foreach ($wedstrijden as $wedstrijd) {
         <p>{$team1['teamName']}</p>
         <p> vs </p>
         <p>{$team2['teamName']}</p>
-        </li>";
+    </li>";
 }
 require "footer.php";
