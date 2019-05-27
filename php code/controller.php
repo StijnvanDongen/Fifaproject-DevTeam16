@@ -1,4 +1,4 @@
-<?php
+sp<?php
 require 'config2.php';
 
 if ($_POST['type'] == 'create') {
@@ -133,7 +133,7 @@ if ($_POST['type'] == 'login') {
 
                 $id = $account['id'];
                 $_SESSION['id'] = $username;
-                header( 'location: index.php');
+                header( 'location: Dashboard.php');
             }
             else {
                 ?>
