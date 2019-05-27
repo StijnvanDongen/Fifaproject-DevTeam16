@@ -157,5 +157,22 @@ footer {
     background: #e60000;
     font-size: 20px;
 }
+.scoor{
+    margin-top: 30px;
+    width:100%
+}
+.scoor table, th, td{
+    border: #0076be  2px solid ;
+    border-collapse: collapse;
+    margin: 10px;
 
+
+}
+
+th, td {
+    padding: 5px;
+}
+th {
+    text-align: left;
+}
 

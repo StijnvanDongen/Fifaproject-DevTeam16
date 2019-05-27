@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Floris
- * Date: 16-4-2019
- * Time: 10:25
- */
-
 require "config2.php";
 require "header.php";
 

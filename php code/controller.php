@@ -291,3 +291,27 @@ if ( $_POST['type'] == 'addUserToTeam' ) {
 
     header("Location: detail.php?id=$id");
 }
+if ($_POST['type'== 'info']){
+    $tijd = $_POST['tijd'];
+    $veldamount = $_POST['veld'];
+    $sql = "DELETE FROM wedstrijden";
+    $query = $db->query($sql);
+
+    $sql = "SELECT * FROM teams";
+    $query = $db->query($sql);
+    $teams = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $teamsAmount = count($teams);
+    $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
+
+    $veld = 1;
+
+    $sql = "INSERT INTO wedstrijden (team1, team2, start, veld) VALUES (:team1, :team2, :start, :veld)";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':team1' => $team1,
+        ':team2' => $team2,
+        ':start' => $start,
+        ':veld' => $veld
+    ]);
+}
