@@ -220,8 +220,6 @@ if ($_POST['type'] == 'delete') {
     exit;
 }
 
-
-
 if ( $_POST['type'] == 'logout' ) {
     unset($_SESSION['id']);
     header("Location: index.php");
@@ -291,7 +289,8 @@ if ( $_POST['type'] == 'addUserToTeam' ) {
 
         header("Location: detail.php?id=$id");
 }
-if ($_POST['type'== 'info']){
+
+if ($_POST['type'] == 'info'){
     $tijd = $_POST['tijd'];
     $veldamount = $_POST['veld'];
     $sql = "DELETE FROM wedstrijden";
@@ -314,4 +313,18 @@ if ($_POST['type'== 'info']){
         ':start' => $start,
         ':veld' => $veld
     ]);
+}
+
+if ($_POST['type'] == 'keygen'){
+    $key_new_gen = md5(uniqid(rand(), true));
+    var_dump($key_new_gen);
+
+    $sql = "INSERT INTO apikeys (apikey) VALUES (:key)";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+            ':key' => $key_new_gen
+    ]);
+
+    $msg = $key_new_gen;
+    header("location: apiKeyGen.php?msg=$msg");
 }
