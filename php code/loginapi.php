@@ -3,18 +3,23 @@ require "config2.php";
 $key = $_GET['key'];
 $code = "dguaetj9lD";
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    die;
+$sql = "SELECT * FROM apikeys";
+$query = $db->query($sql);
+$keys = $query->fetchAll(PDO::FETCH_ASSOC);
 
-} if ($key != $code){
-    header('location: ForbiddenPage.php');
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    if ($_SERVER['REQUEST_METHOD'] != "POST") {
+        foreach ($keys as $sleuteltje) {
 
-} else if ($_SERVER['REQUEST_METHOD'] == "GET"){
-    // via get request
+            if ($sleuteltje['apikey'] == $key) {
 
-    $sql = "SELECT * FROM users";
-    $query = $db->query($sql);
-    $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                $sql = "SELECT * FROM users";
+                $query = $db->query($sql);
+                $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode($users);
+                echo json_encode($users);
+                return;
+            }
+        }
+    }
 }
