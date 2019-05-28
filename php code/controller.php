@@ -279,17 +279,17 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
 }
 
 if ( $_POST['type'] == 'addUserToTeam' ) {
-    $id = $_GET['id'];
-    $user = $_POST['spelers'];
+        $id = $_GET['id'];
+        $user = $_POST['spelers'];
 
-    $sql = "UPDATE users SET teamId = :teamId WHERE userName = :user";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':teamId' => $id,
-        ':user' => $user
-    ]);
+        $sql = "UPDATE users SET teamId = :teamId WHERE userName = :user";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':teamId' => $id,
+            ':user' => $user
+        ]);
 
-    header("Location: detail.php?id=$id");
+        header("Location: detail.php?id=$id");
 }
 if ($_POST['type'== 'info']){
     $tijd = $_POST['tijd'];
