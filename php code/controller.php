@@ -232,6 +232,7 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
     $startH = $_POST['startH'];
     $startM = $_POST['startM'];
     $veldamount = $_POST['veld'];
+    $poules = $_POST['poules'];
 
     $start = ($startH * 60) + $startM;
 
@@ -246,6 +247,7 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
     $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
 
     $veld = 1;
+    $poule = 1;
 
     for ( $i = 0; $i < $wedstrijdAmount; $i++ ) {
         $team1 = $teams[$i]['id'];
@@ -262,7 +264,6 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
                 ':rust' => $rusttijdens,
                 ':veld' => $veld
             ]);
-
             if ( $veld == $veldamount ) {
                 $veld = 1;
                 $start = $start + $tijd + $rustna + $rusttijdens;
@@ -270,6 +271,21 @@ if ( $_POST['type'] == 'makeWedstrijdschema' ) {
             else {
                 $veld++;
             }
+        }
+    }
+
+    foreach ($teams as $team) {
+        $sql = "UPDATE teams SET poule = :poule WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':poule' => $poule,
+            ':id' => $team['id']
+        ]);
+
+        $poule++;
+
+        if ( $poule == ($poules + 1) ) {
+            $poule = 1;
         }
     }
 
@@ -288,31 +304,6 @@ if ( $_POST['type'] == 'addUserToTeam' ) {
         ]);
 
         header("Location: detail.php?id=$id");
-}
-
-if ($_POST['type'] == 'info'){
-    $tijd = $_POST['tijd'];
-    $veldamount = $_POST['veld'];
-    $sql = "DELETE FROM wedstrijden";
-    $query = $db->query($sql);
-
-    $sql = "SELECT * FROM teams";
-    $query = $db->query($sql);
-    $teams = $query->fetchAll(PDO::FETCH_ASSOC);
-
-    $teamsAmount = count($teams);
-    $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
-
-    $veld = 1;
-
-    $sql = "INSERT INTO wedstrijden (team1, team2, start, veld) VALUES (:team1, :team2, :start, :veld)";
-    $prepare = $db->prepare($sql);
-    $prepare->execute([
-        ':team1' => $team1,
-        ':team2' => $team2,
-        ':start' => $start,
-        ':veld' => $veld
-    ]);
 }
 
 if ($_POST['type'] == 'keygen'){

@@ -53,10 +53,15 @@ echo "
                 <input placeholder='00' type=\"number\" name=\"veld\" id=\"veld\" required>
             </div>
             
+            <div class='tijd-input'>
+                <label for=\"poules\">Aantal Poules: </label>
+                <input placeholder='00' type=\"number\" name=\"poules\" id=\"poules\" required>
+            </div>
+            
             <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">
+            <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a>  
         </form> 
     </div>     
-    <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a> <br>   
 ";
 
 

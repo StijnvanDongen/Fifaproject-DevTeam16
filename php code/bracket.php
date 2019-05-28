@@ -55,7 +55,7 @@ foreach ($wedstrijden as $wedstrijd){
         <p>{$wedstrijd['tijd']} min</p>
         <p>{$wedstrijd['rust']} min</p>
         <p>Veld {$wedstrijd['veld']}</p>
-        <p><a href='info.php?id={$wedstrijd['id']}'>info</a></p>
+        <h4><a href='info.php?id={$wedstrijd['id']}'>Info</a></h4>
     </li>";
 
 
