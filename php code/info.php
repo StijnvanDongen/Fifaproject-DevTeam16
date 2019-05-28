@@ -31,57 +31,64 @@ $prepare->execute([
     ':id' => $infowedstrijd['team2']
 ]);
 $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
+
 $name = $infowedstrijd['id'];
 
 echo "<li class='wedstrijd'>
-        <p>{$team1['teamName']}</p>
-        <p> vs </p>
-        <p>{$team2['teamName']}</p>
-        <p>{$infowedstrijd['tijd']} min</p>
-        <p>Veld {$infowedstrijd['veld']}</p>
-        </li>";
+    <p>{$team1['teamName']}</p>
+    <p> vs </p>
+    <p>{$team2['teamName']}</p>
+    <p>{$infowedstrijd['tijd']} min</p>
+    <p>Veld {$infowedstrijd['veld']}</p>
+</li>";
 
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM teams WHERE id = $id";
-$query = $db->query($sql);
-$team = $query->fetch(PDO::FETCH_ASSOC);
+$sql = "SELECT * FROM wedstrijden WHERE id = :id";
+$prepare = $db->prepare($sql);
+$prepare->execute([
+    ':id' => $id
+]);
+$wedstrijd = $prepare->fetch(PDO::FETCH_ASSOC);
 
 $sql = "SELECT * FROM users WHERE teamId = :teamId";
 $prepare = $db->prepare($sql);
 $prepare->execute([
-    ':teamId' => $id
+    ':teamId' => $wedstrijd['team1']
 ]);
-$spelers = $prepare->fetchall(PDO::FETCH_ASSOC);
-var_dump($spelers);
+$spelers1 = $prepare->fetchall(PDO::FETCH_ASSOC);
 
-$sql = "SELECT * FROM users";
-$query = $db->query($sql);
-$users = $query->fetchAll(PDO::FETCH_ASSOC);
+$sql = "SELECT * FROM users WHERE teamId = :teamId";
+$prepare = $db->prepare($sql);
+$prepare->execute([
+    ':teamId' => $wedstrijd['team2']
+]);
+$spelers2 = $prepare->fetchall(PDO::FETCH_ASSOC);
 
-foreach ($spelers as $speler) {
+foreach ($spelers1 as $speler1) {
     echo "<table class='scoor' >
   <tr>
-    <th>speler</th>
-    <th>scoor</th> 
- 
+    <th>spelers Team 1</th>
+    <th>Gescored</th> 
   </tr>
   <tr>
-    <td>{$speler['userName']}</td>
+    <td>{$speler1['userName']}</td>
     <td>ja</td>
   </tr>  
 </table>";
 }
 
-echo "<table class='scoor' >
+foreach ($spelers2 as $speler2) {
+    echo "<table class='scoor' >
   <tr>
-    <th>speler</th>
-    <th>scoor</th> 
+    <th>spelers Team 2</th>
+    <th>Gescored</th> 
   </tr>
   <tr>
-    <td>{$speler['userName']}</td>
+    <td>{$speler2['userName']}</td>
     <td>ja</td>
   </tr>  
 </table>";
+}
 
 require "footer.php";
