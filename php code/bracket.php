@@ -3,7 +3,7 @@ require "config2.php";
 require "header.php";
 
 
-echo "<h2>Groupen</h2>";
+echo "<h2>Poules</h2>";
 
 $sql = "SELECT DISTINCT(group_id) FROM teams_groups";
 $query = $db->query($sql);
@@ -11,7 +11,7 @@ $groups = $query->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($groups as $group) {
     $group_id = $group["group_id"];
-    echo "<h2>Group Name: $group_id</h2>";
+    echo "<h3>Poule: $group_id</h3>";
 
     $sql = "SELECT teams_groups.team_id,teams.teamName FROM teams_groups, teams 
                     where teams_groups.team_id=teams.id and group_id =$group_id";
@@ -39,7 +39,7 @@ echo "<li class='wedstrijd'>
     <h4>Speeltijd:</h4>
     <h4>Rusttijd:</h4>
     <h4>Veld:</h4>
-    <h4>Group:</h4>
+    <h4>Poule:</h4>
 </li>";
 
 foreach ($wedstrijden as $wedstrijd) {
@@ -71,6 +71,13 @@ foreach ($wedstrijden as $wedstrijd) {
 
     $name = $wedstrijd['id'];
 
+    $sql = "SELECT * FROM teams_groups WHERE team_id = :team1";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':team1' => $team1['id']
+    ]);
+    $group = $prepare->fetch(PDO::FETCH_ASSOC);
+
     echo "<li class='wedstrijd'>
         <p>{$team1['teamName']}</p>
         <p> vs </p>
@@ -79,9 +86,8 @@ foreach ($wedstrijden as $wedstrijd) {
         <p>{$wedstrijd['tijd']} min</p>
         <p>{$wedstrijd['rust']} min</p>
         <p>Veld {$wedstrijd['veld']}</p>
-        <p>group {$wedstrijd['group_id']}</p>
-        <h4><a href='info.php?id={$wedstrijd['id']}'>Info</a></h4>
-       
+        <p>Poule {$group['group_id']}</p>
+        <h4><a href='info.php?id={$wedstrijd['id']}'>Informatie</a></h4>
     </li>";
 }
 

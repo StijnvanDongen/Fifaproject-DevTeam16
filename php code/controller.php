@@ -275,7 +275,7 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
                 for ($x = $i + 1; $x < $NTeamsPerGroup; $x++) {
                     $team2 = $teams_perGroup[$x]['team_id'];
 
-                    $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld,group_id) VALUES (:team1, :team2, :start, :tijd, :rust, :veld, :group_id)";
+                    $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld) VALUES (:team1, :team2, :start, :tijd, :rust, :veld)";
                     $prepare = $db->prepare($sql);
                     $prepare->execute([
                         ':team1' => $team1,
@@ -283,8 +283,7 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
                         ':start' => $start,
                         ':tijd' => $tijd,
                         ':rust' => $rusttijdens,
-                        ':veld' => $veld,
-                        ':group_id' => $GG
+                        ':veld' => $veld
                     ]);
                     if ($veld == $veldamount) {
                         $veld = 1;
@@ -327,4 +326,22 @@ if ($_POST['type'] == 'keygen') {
 
     $msg = $key_new_gen;
     header("location: apiKeyGen.php?msg=$msg");
+}
+
+if ($_POST['type'] == 'score') {
+    $id = $_GET['id'];
+    $homescore = $_POST['score1'];
+    $awayscore = $_POST['score2'];
+
+    $score = "UPDATE wedstrijden SET GoalsTeam1 = :homescore, GoalsTeam2 = :awayscore WHERE id = :id";
+    $prepare = $db->prepare($score);
+    $prepare->execute([
+        ':id' => $id,
+        ':homescore' => $homescore,
+        ':awayscore' => $awayscore
+    ]);
+
+    $msg = 'succesvol toegevoegd';
+    header("location: ./info.php?id=$id");
+    exit;
 }
