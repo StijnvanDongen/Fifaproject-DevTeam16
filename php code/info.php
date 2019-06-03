@@ -65,14 +65,14 @@ echo "<li class='wedstrijd'>
         <input type="hidden" name="type" value="score">
 
         <div>
-            <input type="number" name="score1" id="score1" class="inputField" maxlength="2" required>
+            <input type="number" name="score1" id="score1" class="inputField" required>
         </div>
 
         <div>
-            <input type="number" name="score2" id="score2" class="inputField" maxlength="2" required>
+            <input type="number" name="score2" id="score2" class="inputField" required>
         </div>
 
-        <input class="button" type="submit" value="Register" class="submit">
+        <input class="button" type="submit" value="update" class="submit">
     </form>
 
 <?php
