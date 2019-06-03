@@ -5,11 +5,14 @@ require "header.php";
 $sql = "SELECT * FROM teams";
 $query = $db->query($sql);
 $teams = $query->fetchAll(PDO::FETCH_ASSOC);
-
+if (!empty($_GET) && $_GET["msg"] != "") {
+    $message = $_GET["msg"];
+    echo "<script type='text/javascript'>alert('$message');</script>";
+}
 echo "<h2>hier onder zie je een lijst met alle teams</h2>";
 echo "<ul class=\"list\">";
 
-foreach ($teams as $team){
+foreach ($teams as $team) {
 
     $name = $team['teamName'];
 

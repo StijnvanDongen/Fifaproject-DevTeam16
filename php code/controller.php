@@ -6,8 +6,7 @@ if ($_POST['type'] == 'create') {
     $teamName = trim($_POST['teamName']);
     $madeBy = trim($_SESSION['id']);
 
-    if($teamName != "" || $madeBy != "")
-    {
+    if ($teamName != "" || $madeBy != "") {
         $sql = "INSERT INTO teams (teamName, madeBy)
         VALUES  (:teamName, :madeBy)";
         $prepare = $db->prepare($sql);
@@ -35,7 +34,7 @@ if ($_POST['type'] == 'register') {
 
     $uppercase = preg_match('@[A-Z]@', $password1);
     $lowercase = preg_match('@[a-z]@', $password1);
-    $number    = preg_match('@[0-9]@', $password1);
+    $number = preg_match('@[0-9]@', $password1);
 
     $user_check_query = $db->prepare("SELECT * FROM users WHERE email=?");
     $user_check_query->execute([$email]);
@@ -50,16 +49,12 @@ if ($_POST['type'] == 'register') {
         </script>
         <?php
 
-    }
-    else
-    {
+    } else {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
             echo("$email is not a valid email address");
 
-        }
-        else
-        {
+        } else {
             if ($password1 === $password2) {
 
                 if (!$uppercase || !$lowercase || !$number || strlen($password1) < 8) {
@@ -113,29 +108,20 @@ if ($_POST['type'] == 'login') {
     $user_login_email_check_query->execute([$username]);
     $account = $user_login_email_check_query->fetch();
     if ($account) {
-        // email has been found
-
         $sql = "SELECT * FROM users WHERE userName = :userName";
         $prepare = $db->prepare($sql);
         $prepare->execute([
             ':userName' => $username
         ]);
         $account = $prepare->fetch(PDO::FETCH_ASSOC);
-
         $storedPassword = $account['password'];
-
         if ($account) {
-
             $hashedPassword = $account['password'];
-
-            if (password_verify($password, $storedPassword)){
-                // everything is oke
-
+            if (password_verify($password, $storedPassword)) {
                 $id = $account['id'];
                 $_SESSION['id'] = $username;
-                header( 'location: Dashboard.php');
-            }
-            else {
+                header('location: Dashboard.php');
+            } else {
                 ?>
                 <script type="text/javascript">
                     alert("Wrong password!");
@@ -165,7 +151,7 @@ if ($_POST['type'] == 'login') {
     exit;
 }
 
-if($_POST['type'] == 'editpwd'){
+if ($_POST['type'] == 'editpwd') {
     $password = $_POST{'password'};
     $username = $_GET{'username'};
 
@@ -178,8 +164,8 @@ if($_POST['type'] == 'editpwd'){
             WHERE userName = :username";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-        ':password'        => $passwordHash,
-        ':username'        => $username,
+        ':password' => $passwordHash,
+        ':username' => $username,
     ]);
 
     header('location: index.php');
@@ -220,100 +206,123 @@ if ($_POST['type'] == 'delete') {
     exit;
 }
 
-if ( $_POST['type'] == 'logout' ) {
+if ($_POST['type'] == 'logout') {
     unset($_SESSION['id']);
     header("Location: index.php");
 }
 
-if ( $_POST['type'] == 'makeWedstrijdschema' ) {
+if ($_POST['type'] == 'makeWedstrijdschema') {
     $tijd = $_POST['tijd'];
     $rusttijdens = $_POST['rusttijdens'];
     $rustna = $_POST['rustna'];
     $startH = $_POST['startH'];
     $startM = $_POST['startM'];
     $veldamount = $_POST['veld'];
-    $poules = $_POST['poules'];
-
-    $start = ($startH * 60) + $startM;
-
-    $sql = "DELETE FROM wedstrijden";
-    $query = $db->query($sql);
+    $group_Count = $_POST['poules'];
 
     $sql = "SELECT * FROM teams";
     $query = $db->query($sql);
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
-
     $teamsAmount = count($teams);
-    $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
 
-    $veld = 1;
-    $poule = 1;
+    if ($teamsAmount % $group_Count != 0) {
+        $message = "Het resultaat van het aantal teams / aantal groepen moet integer zijn";
+        header("Location: list.php?msg=$message");
+    } else {
+        $NTeamsPerGroup = $teamsAmount / $group_Count;
+        $array = array();
+        $groupName = 1;
+        $loopCounter = 0;
+        $sql = "DELETE FROM teams_groups";
+        $query = $db->query($sql);
 
-    for ( $i = 0; $i < $wedstrijdAmount; $i++ ) {
-        $team1 = $teams[$i]['id'];
-        for ( $x = $i + 1; $x < $teamsAmount; $x++ ) {
-            $team2 = $teams[$x]['id'];
-
-            $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld) VALUES (:team1, :team2, :start, :tijd, :rust, :veld)";
+        foreach ($teams as $t) {
+            $array[$t["id"]] = $groupName;
+            $sql = "INSERT INTO teams_groups (team_id, group_id) VALUES (:team_id, :group_id)";
             $prepare = $db->prepare($sql);
             $prepare->execute([
-                ':team1' => $team1,
-                ':team2' => $team2,
-                ':start' => $start,
-                ':tijd' => $tijd,
-                ':rust' => $rusttijdens,
-                ':veld' => $veld
+                ':team_id' => $t["id"],
+                ':group_id' => $groupName
             ]);
-            if ( $veld == $veldamount ) {
-                $veld = 1;
-                $start = $start + $tijd + $rustna + $rusttijdens;
-            }
-            else {
-                $veld++;
+
+            $loopCounter++;
+            if ($loopCounter == $NTeamsPerGroup) {
+                $loopCounter = 0;
+                $groupName++;
             }
         }
-    }
 
-    foreach ($teams as $team) {
-        $sql = "UPDATE teams SET poule = :poule WHERE id = :id";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':poule' => $poule,
-            ':id' => $team['id']
-        ]);
 
-        $poule++;
+        $start = ($startH * 60) + $startM;
 
-        if ( $poule == ($poules + 1) ) {
-            $poule = 1;
+        $sql = "DELETE FROM wedstrijden";
+        $query = $db->query($sql);
+
+
+        $wedstrijdAmount = (($teamsAmount * $teamsAmount) - $teamsAmount) / 2;
+
+        $Group_wedstrijdAmount = (($NTeamsPerGroup * $NTeamsPerGroup) - $NTeamsPerGroup) / 2;
+        $veld = 1;
+
+
+        for ($GG = 1; $GG <= $group_Count; $GG++) {
+            $sql = "SELECT * FROM teams_groups WHERE group_id =$GG";
+            $query = $db->query($sql);
+            $teams_perGroup = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            for ($i = 0; $i < $Group_wedstrijdAmount; $i++) {
+                $team1 = $teams_perGroup[$i]['team_id'];
+                for ($x = $i + 1; $x < $NTeamsPerGroup; $x++) {
+                    $team2 = $teams_perGroup[$x]['team_id'];
+
+                    $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld,group_id) VALUES (:team1, :team2, :start, :tijd, :rust, :veld, :group_id)";
+                    $prepare = $db->prepare($sql);
+                    $prepare->execute([
+                        ':team1' => $team1,
+                        ':team2' => $team2,
+                        ':start' => $start,
+                        ':tijd' => $tijd,
+                        ':rust' => $rusttijdens,
+                        ':veld' => $veld,
+                        ':group_id' => $GG
+                    ]);
+                    if ($veld == $veldamount) {
+                        $veld = 1;
+                        $start = $start + $tijd + $rustna + $rusttijdens;
+                    } else {
+                        $veld++;
+                    }
+
+                }
+            }
+
         }
+        header("Location: bracket.php?velden=$veldamount");
     }
-
-    header("Location: bracket.php?velden=$veldamount");
 }
 
-if ( $_POST['type'] == 'addUserToTeam' ) {
-        $id = $_GET['id'];
-        $user = $_POST['spelers'];
+if ($_POST['type'] == 'addUserToTeam') {
+    $id = $_GET['id'];
+    $user = $_POST['spelers'];
 
-        $sql = "UPDATE users SET teamId = :teamId WHERE userName = :user";
-        $prepare = $db->prepare($sql);
-        $prepare->execute([
-            ':teamId' => $id,
-            ':user' => $user
-        ]);
+    $sql = "UPDATE users SET teamId = :teamId WHERE userName = :user";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':teamId' => $id,
+        ':user' => $user
+    ]);
 
-        header("Location: detail.php?id=$id");
+    header("Location: detail.php?id=$id");
 }
 
-if ($_POST['type'] == 'keygen'){
+if ($_POST['type'] == 'keygen') {
     $key_new_gen = md5(uniqid(rand(), true));
     var_dump($key_new_gen);
 
     $sql = "INSERT INTO apikeys (apikey) VALUES (:key)";
     $prepare = $db->prepare($sql);
     $prepare->execute([
-            ':key' => $key_new_gen
+        ':key' => $key_new_gen
     ]);
 
     $msg = $key_new_gen;

@@ -74,7 +74,7 @@ footer {
     padding-left: 10px;
 }
 
-.info{
+.info {
     margin-top: 10%;
     font-size: 20px;
 
@@ -87,12 +87,13 @@ footer {
 
 .wedstrijd {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
     text-align: center;
     border-bottom: #0076be 2px solid;
 }
 
-.wedstrijden{
+.wedstrijden {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
@@ -157,12 +158,14 @@ footer {
     background: #e60000;
     font-size: 20px;
 }
-.scoor{
+
+.scoor {
     margin-top: 30px;
-    width:100px;
+    width: 100px;
 }
-.scoor table, th, td{
-    border: #0076be  2px solid ;
+
+.scoor table, th, td {
+    border: #0076be 2px solid;
     border-collapse: collapse;
     margin: 10px;
 
@@ -172,6 +175,7 @@ footer {
 th, td {
     padding: 5px;
 }
+
 th {
     text-align: left;
 }
