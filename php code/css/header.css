@@ -179,4 +179,7 @@ th, td {
 th {
     text-align: left;
 }
-
+.poule {
+    display: grid;
+    grid-template-columns: 2fr 2fr ;
+}

@@ -349,7 +349,7 @@ if ($_POST['type'] == 'score') {
     $query = $db->query($sql);
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    foreach ($teams as $team){
+    foreach ($teams as $team) {
         $sql = "UPDATE teams SET teamScore = :score WHERE id = :id";
         $prepare = $db->prepare($sql);
         $prepare->execute([
@@ -358,11 +358,11 @@ if ($_POST['type'] == 'score') {
         ]);
     }
 
-    foreach ($wedstrijden as $wedstrijd){
+    foreach ($wedstrijden as $wedstrijd) {
         $winst = 3;
         $gelijk = 1;
 
-        if ( $wedstrijd['GoalsTeam1'] == $wedstrijd['GoalsTeam2'] ) {
+        if ($wedstrijd['GoalsTeam1'] == $wedstrijd['GoalsTeam2']) {
             $sql = "SELECT * FROM teams WHERE id = :id";
             $prepare = $db->prepare($sql);
             $prepare->execute([
@@ -395,7 +395,7 @@ if ($_POST['type'] == 'score') {
                 ':id' => $wedstrijd['team2']
             ]);
         }
-        if ( $wedstrijd['GoalsTeam1'] > $wedstrijd['GoalsTeam2'] ) {
+        if ($wedstrijd['GoalsTeam1'] > $wedstrijd['GoalsTeam2']) {
             $sql = "SELECT * FROM teams WHERE id = :id";
             $prepare = $db->prepare($sql);
             $prepare->execute([
@@ -412,7 +412,7 @@ if ($_POST['type'] == 'score') {
                 ':id' => $wedstrijd['team1']
             ]);
         }
-        if ( $wedstrijd['GoalsTeam2'] > $wedstrijd['GoalsTeam1'] ) {
+        if ($wedstrijd['team2'] > $wedstrijd['team1']) {
             $sql = "SELECT * FROM teams WHERE id = :id";
             $prepare = $db->prepare($sql);
             $prepare->execute([
