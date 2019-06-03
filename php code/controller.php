@@ -341,6 +341,96 @@ if ($_POST['type'] == 'score') {
         ':awayscore' => $awayscore
     ]);
 
+    $sql = "SELECT * FROM wedstrijden";
+    $query = $db->query($sql);
+    $wedstrijden = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT * FROM teams";
+    $query = $db->query($sql);
+    $teams = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($teams as $team){
+        $sql = "UPDATE teams SET teamScore = :score WHERE id = :id";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':score' => 0,
+            ':id' => $team['id']
+        ]);
+    }
+
+    foreach ($wedstrijden as $wedstrijd){
+        $winst = 3;
+        $gelijk = 1;
+
+        if ( $wedstrijd['GoalsTeam1'] == $wedstrijd['GoalsTeam2'] ) {
+            $sql = "SELECT * FROM teams WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':id' => $wedstrijd['team1']
+            ]);
+            $team1 = $prepare->fetch(PDO::FETCH_ASSOC);
+
+            $newscore = $team1['teamScore'] + $gelijk;
+
+            $sql = "UPDATE teams SET teamScore = :score WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':score' => $newscore,
+                ':id' => $wedstrijd['team1']
+            ]);
+
+            $sql = "SELECT * FROM teams WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':id' => $wedstrijd['team2']
+            ]);
+            $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
+
+            $newscore = $team2['teamScore'] + $gelijk;
+
+            $sql = "UPDATE teams SET teamScore = :score WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':score' => $newscore,
+                ':id' => $wedstrijd['team2']
+            ]);
+        }
+        if ( $wedstrijd['GoalsTeam1'] > $wedstrijd['GoalsTeam2'] ) {
+            $sql = "SELECT * FROM teams WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':id' => $wedstrijd['team1']
+            ]);
+            $team1 = $prepare->fetch(PDO::FETCH_ASSOC);
+
+            $newscore = $team1['teamScore'] + $winst;
+
+            $sql = "UPDATE teams SET teamScore = :score WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':score' => $newscore,
+                ':id' => $wedstrijd['team1']
+            ]);
+        }
+        if ( $wedstrijd['team2'] > $wedstrijd['team1'] ) {
+            $sql = "SELECT * FROM teams WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':id' => $wedstrijd['team2']
+            ]);
+            $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
+
+            $newscore = $team2['teamScore'] + $winst;
+
+            $sql = "UPDATE teams SET teamScore = :score WHERE id = :id";
+            $prepare = $db->prepare($sql);
+            $prepare->execute([
+                ':score' => $newscore,
+                ':id' => $wedstrijd['team2']
+            ]);
+        }
+    }
+
     $msg = 'succesvol toegevoegd';
     header("location: ./info.php?id=$id");
     exit;
