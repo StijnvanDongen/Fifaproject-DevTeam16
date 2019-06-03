@@ -16,10 +16,11 @@ foreach ($teams as $team) {
 
     $name = $team['teamName'];
 
-    echo "<li><div><a href='detail.php?id={$team['id']}'><div>{$team['teamName']}</a></div></li>";
+    echo "<li><a href='detail.php?id={$team['id']}'>{$team['teamName']}</a></li>";
 
 }
 echo "
+        <li><a href='detail.php'></a></li>
     </ul>
     <div class=\"wedstrijdschema\">
         <form action=\"controller.php\" method=\"post\">
@@ -63,7 +64,8 @@ echo "
             
             <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">
             <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a>  
-        </form> 
+            <a class='button' href=''>Knock-Out Schema Bekijken</a>
+        </form>
     </div>     
 ";
 

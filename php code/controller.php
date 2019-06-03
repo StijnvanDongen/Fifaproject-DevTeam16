@@ -412,7 +412,7 @@ if ($_POST['type'] == 'score') {
                 ':id' => $wedstrijd['team1']
             ]);
         }
-        if ( $wedstrijd['team2'] > $wedstrijd['team1'] ) {
+        if ( $wedstrijd['GoalsTeam2'] > $wedstrijd['GoalsTeam1'] ) {
             $sql = "SELECT * FROM teams WHERE id = :id";
             $prepare = $db->prepare($sql);
             $prepare->execute([
