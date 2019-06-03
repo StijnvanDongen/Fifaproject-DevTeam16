@@ -328,3 +328,21 @@ if ($_POST['type'] == 'keygen') {
     $msg = $key_new_gen;
     header("location: apiKeyGen.php?msg=$msg");
 }
+
+if ($_POST['type'] == 'score') {
+    $id = $_GET['id'];
+    $homescore = $_POST['score1'];
+    $awayscore = $_POST['score2'];
+
+    $score = "UPDATE wedstrijden SET GoalsTeam1 = :homescore, GoalsTeam2 = :awayscore WHERE id = :id";
+    $prepare = $db->prepare($score);
+    $prepare->execute([
+        ':id' => $id,
+        ':homescore' => $homescore,
+        ':awayscore' => $awayscore
+    ]);
+
+    $msg = 'succesvol toegevoegd';
+    header("location: ./info.php?id=$id");
+    exit;
+}

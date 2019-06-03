@@ -6,6 +6,20 @@ $id = $_GET['id'];
 $sql = "SELECT * FROM wedstrijden WHERE id = $id";
 $query = $db->query($sql);
 $infowedstrijd = $query->fetch(PDO::FETCH_ASSOC);
+var_dump($id);
+
+//$sql = "SELECT * FROM wedstrijden WHERE id = $id";
+//$query = $db->query($sql);
+//$infowedstrijd = $query->fetch(PDO::FETCH_ASSOC);
+
+$sql = "SELECT * FROM wedstrijden WHERE id = :id";
+$prepare = $db->prepare($sql);
+$prepare->execute([
+    ':id' => $id
+]);
+$infowedstrijd = $prepare->fetch(PDO::FETCH_ASSOC);
+var_dump($infowedstrijd);
+
 
 echo "<h2>info:</h2>";
 
@@ -15,7 +29,10 @@ echo "<li class='wedstrijd'>
     <h4>Team 2:</h4>
     <h4>Starttijd:</h4>
     <h4>Veld:</h4>
+    <h4>Score Team 1</h4>
+    <h4>Score Team 2</h4>
 </li>";
+
 
 
 $sql = "SELECT * FROM teams WHERE id = :id";
@@ -35,12 +52,31 @@ $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
 $name = $infowedstrijd['id'];
 
 echo "<li class='wedstrijd'>
-    <p>{$team1['teamName']}</p>
-    <p> vs </p>
-    <p>{$team2['teamName']}</p>
-    <p>{$infowedstrijd['tijd']} min</p>
-    <p>Veld {$infowedstrijd['veld']}</p>
+ <p>{$team1['teamName']}</p>
+ <p> vs </p>
+ <p>{$team2['teamName']}</p>
+  <p>{$infowedstrijd['tijd']} min</p>
+  <p>Veld {$infowedstrijd['veld']}</p>
 </li>";
+
+?>
+
+    <form action="controller.php?id=<?php echo $id; ?>" method="post">
+        <input type="hidden" name="type" value="score">
+
+        <div>
+            <input type="number" name="score1" id="score1" class="inputField" maxlength="2" required>
+        </div>
+
+        <div>
+            <input type="number" name="score2" id="score2" class="inputField" maxlength="2" required>
+        </div>
+
+        <input class="button" type="submit" value="Register" class="submit">
+    </form>
+
+<?php
+
 
 
 $id = $_GET['id'];
