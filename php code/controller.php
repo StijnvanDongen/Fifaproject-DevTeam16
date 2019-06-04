@@ -263,6 +263,14 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
 
         $Group_wedstrijdAmount = (($NTeamsPerGroup * $NTeamsPerGroup) - $NTeamsPerGroup) / 2;
         $veld = 1;
+        $scheidcount = 0;
+
+        $sql = "SELECT * FROM users WHERE scheids = :scheids";
+        $prepare = $db->prepare($sql);
+        $prepare->execute([
+            ':scheids' => 1
+        ]);
+        $scheids = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
 
         for ($GG = 1; $GG <= $group_Count; $GG++) {
@@ -275,30 +283,27 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
                 for ($x = $i + 1; $x < $NTeamsPerGroup; $x++) {
                     $team2 = $teams_perGroup[$x]['team_id'];
 
-                    $sql = "SELECT * FROM users WHERE scheids = :scheids";
+                    $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld, scheids_id) VALUES (:team1, :team2, :start, :tijd, :rust, :veld, :scheids_id)";
                     $prepare = $db->prepare($sql);
                     $prepare->execute([
-                        ':scheids' => 1
+                        ':team1' => $team1,
+                        ':team2' => $team2,
+                        ':start' => $start,
+                        ':tijd' => $tijd,
+                        ':rust' => $rusttijdens,
+                        ':veld' => $veld,
+                        ':scheids_id' => $scheids[$scheidcount]['id']
                     ]);
-                    $scheids = $prepare->fetchAll(PDO::FETCH_ASSOC);
-                    for ( $s = 0; $s < count($scheids); $s++ ) {
-                        $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld, scheids_id) VALUES (:team1, :team2, :start, :tijd, :rust, :veld, :scheids_id)";
-                        $prepare = $db->prepare($sql);
-                        $prepare->execute([
-                            ':team1' => $team1,
-                            ':team2' => $team2,
-                            ':start' => $start,
-                            ':tijd' => $tijd,
-                            ':rust' => $rusttijdens,
-                            ':veld' => $veld,
-                            ':scheids_id' => $scheids[$s]['id']
-                        ]);
-                        if ($veld == $veldamount) {
-                            $veld = 1;
-                            $start = $start + $tijd + $rustna + $rusttijdens;
-                        } else {
-                            $veld++;
-                        }
+                    $scheidcount++;
+                    if ( $scheidcount == count($scheids) ) {
+                        $scheidcount = 0;
+                    }
+
+                    if ($veld == $veldamount) {
+                        $veld = 1;
+                        $start = $start + $tijd + $rustna + $rusttijdens;
+                    } else {
+                        $veld++;
                     }
                 }
             }
