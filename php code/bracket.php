@@ -40,6 +40,7 @@ echo "<li class='wedstrijd'>
     <h4>Rusttijd:</h4>
     <h4>Veld:</h4>
     <h4>Poule:</h4>
+    <h4>Schieds:</h4>
 </li>";
 
 foreach ($wedstrijden as $wedstrijd) {
@@ -56,6 +57,13 @@ foreach ($wedstrijden as $wedstrijd) {
         ':id' => $wedstrijd['team2']
     ]);
     $team2 = $prepare->fetch(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT * FROM users WHERE id = :scheids_id";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':scheids_id' => $wedstrijd['scheids_id']
+    ]);
+    $scheids = $prepare->fetch(PDO::FETCH_ASSOC);
 
     $min = $wedstrijd['start'] % 60;
     $hour = ($wedstrijd['start'] - $min) / 60;
@@ -87,6 +95,7 @@ foreach ($wedstrijden as $wedstrijd) {
         <p>{$wedstrijd['rust']} min</p>
         <p>Veld {$wedstrijd['veld']}</p>
         <p>Poule {$group['group_id']}</p>
+        <p>{$scheids['userName']}</p>
         <h4><a href='info.php?id={$wedstrijd['id']}'>Informatie</a></h4>
     </li>";
 }

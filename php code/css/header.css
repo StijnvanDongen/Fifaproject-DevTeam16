@@ -87,7 +87,7 @@ footer {
 
 .wedstrijd {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr 2fr 2fr 2fr 2fr 2fr;
+    grid-template-columns: 2fr 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr;
 
     text-align: center;
     border-bottom: #0076be 2px solid;

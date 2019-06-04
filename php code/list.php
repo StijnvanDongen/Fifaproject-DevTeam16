@@ -5,11 +5,23 @@ require "header.php";
 $sql = "SELECT * FROM teams";
 $query = $db->query($sql);
 $teams = $query->fetchAll(PDO::FETCH_ASSOC);
-if (!empty($_GET) && $_GET["msg"] != "") {
+if (isset($_GET['msg'])) {
     $message = $_GET["msg"];
     echo "<script type='text/javascript'>alert('$message');</script>";
 }
 echo "<h2>hier onder zie je een lijst met alle teams</h2>";
+if ( isset($_SESSION['id']) ) {
+    $sql = "SELECT * FROM users WHERE userName = :userName";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':userName' => $_SESSION['id']
+    ]);
+    $account = $prepare->fetch(PDO::FETCH_ASSOC);
+
+    if ( $account['admin'] == 1 ) {
+        echo "<a href='schieds.php' class='button'>Scheidsrechters</a>";
+    }
+}
 echo "<ul class=\"list\">";
 
 foreach ($teams as $team) {

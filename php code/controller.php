@@ -275,23 +275,31 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
                 for ($x = $i + 1; $x < $NTeamsPerGroup; $x++) {
                     $team2 = $teams_perGroup[$x]['team_id'];
 
-                    $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld) VALUES (:team1, :team2, :start, :tijd, :rust, :veld)";
+                    $sql = "SELECT * FROM users WHERE scheids = :scheids";
                     $prepare = $db->prepare($sql);
                     $prepare->execute([
-                        ':team1' => $team1,
-                        ':team2' => $team2,
-                        ':start' => $start,
-                        ':tijd' => $tijd,
-                        ':rust' => $rusttijdens,
-                        ':veld' => $veld
+                        ':scheids' => 1
                     ]);
-                    if ($veld == $veldamount) {
-                        $veld = 1;
-                        $start = $start + $tijd + $rustna + $rusttijdens;
-                    } else {
-                        $veld++;
+                    $scheids = $prepare->fetchAll(PDO::FETCH_ASSOC);
+                    for ( $s = 0; $s < count($scheids); $s++ ) {
+                        $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld, scheids_id) VALUES (:team1, :team2, :start, :tijd, :rust, :veld, :scheids_id)";
+                        $prepare = $db->prepare($sql);
+                        $prepare->execute([
+                            ':team1' => $team1,
+                            ':team2' => $team2,
+                            ':start' => $start,
+                            ':tijd' => $tijd,
+                            ':rust' => $rusttijdens,
+                            ':veld' => $veld,
+                            ':scheids_id' => $scheids[$s]['id']
+                        ]);
+                        if ($veld == $veldamount) {
+                            $veld = 1;
+                            $start = $start + $tijd + $rustna + $rusttijdens;
+                        } else {
+                            $veld++;
+                        }
                     }
-
                 }
             }
 
@@ -434,4 +442,17 @@ if ($_POST['type'] == 'score') {
     $msg = 'succesvol toegevoegd';
     header("location: ./info.php?id=$id");
     exit;
+}
+
+if ($_POST['type'] == 'addScheids') {
+    $user = $_POST['spelers'];
+
+    $sql = "UPDATE users SET scheids = :scheids WHERE userName = :user";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':scheids' => 1,
+        ':user' => $user
+    ]);
+
+    header("Location: schieds.php");
 }
