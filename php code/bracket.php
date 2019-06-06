@@ -5,7 +5,7 @@ require "header.php";
 
 echo "<h2>Poules</h2>";
 
-$sql = "SELECT DISTINCT(group_id) FROM teams_groups";
+$sql = "SELECT DISTINCT(group_id) FROM teams";
 $query = $db->query($sql);
 $groups = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -13,8 +13,7 @@ foreach ($groups as $group) {
     $group_id = $group["group_id"];
     echo "<h3>Poule: $group_id</h3>";
 
-    $sql = "SELECT teams_groups.team_id,teams.teamName FROM teams_groups, teams 
-                    where teams_groups.team_id=teams.id and group_id =$group_id";
+    $sql = "SELECT * FROM teams WHERE group_id =$group_id";
     $query = $db->query($sql);
     $teams_perGroup = $query->fetchAll(PDO::FETCH_ASSOC);
     echo "<ol>";
@@ -79,7 +78,7 @@ foreach ($wedstrijden as $wedstrijd) {
 
     $name = $wedstrijd['id'];
 
-    $sql = "SELECT * FROM teams_groups WHERE team_id = :team1";
+    $sql = "SELECT * FROM teams WHERE id = :team1";
     $prepare = $db->prepare($sql);
     $prepare->execute([
         ':team1' => $team1['id']

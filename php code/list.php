@@ -76,7 +76,7 @@ echo "
             
             <input class=\"button\" type=\"submit\" value=\"Maak WedstrijdSchema\">
             <a class=\"button\" href=\"bracket.php\">WedstrijdSchema Bekijken</a>  
-            <a class='button' href=''>Knock-Out Schema Bekijken</a>
+            <a class='button' href='knockout.php'>Knock-Out Schema Bekijken</a>
         </form>
     </div>     
 ";

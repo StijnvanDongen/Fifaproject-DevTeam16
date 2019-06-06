@@ -220,6 +220,22 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
     $veldamount = $_POST['veld'];
     $group_Count = $_POST['poules'];
 
+    $start = ($startH * 60) + $startM;
+
+    $sql = "DELETE FROM wedstrijdeninfo";
+    $query = $db->query($sql);
+
+    $sql = "INSERT INTO wedstrijdeninfo (wedstrijdTijd, rustTijd, pauseTijd, startTijd, velden, poules) VALUES (:wedstrijdTijd, :rustTijd, :pauseTijd, :startTijd, :velden, :poules)";
+    $prepare = $db->prepare($sql);
+    $prepare->execute([
+        ':wedstrijdTijd' => $tijd,
+        ':rustTijd' => $rusttijdens,
+        ':pauseTijd' => $rustna,
+        ':startTijd' => $start,
+        ':velden' => $veldamount,
+        ':poules' => $group_Count
+    ]);
+
     $sql = "SELECT * FROM teams";
     $query = $db->query($sql);
     $teams = $query->fetchAll(PDO::FETCH_ASSOC);
@@ -233,15 +249,13 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
         $array = array();
         $groupName = 1;
         $loopCounter = 0;
-        $sql = "DELETE FROM teams_groups";
-        $query = $db->query($sql);
 
         foreach ($teams as $t) {
             $array[$t["id"]] = $groupName;
-            $sql = "INSERT INTO teams_groups (team_id, group_id) VALUES (:team_id, :group_id)";
+            $sql = "UPDATE teams SET group_id = :group_id WHERE id = :id";
             $prepare = $db->prepare($sql);
             $prepare->execute([
-                ':team_id' => $t["id"],
+                ':id' => $t["id"],
                 ':group_id' => $groupName
             ]);
 
@@ -251,9 +265,6 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
                 $groupName++;
             }
         }
-
-
-        $start = ($startH * 60) + $startM;
 
         $sql = "DELETE FROM wedstrijden";
         $query = $db->query($sql);
@@ -274,14 +285,14 @@ if ($_POST['type'] == 'makeWedstrijdschema') {
 
 
         for ($GG = 1; $GG <= $group_Count; $GG++) {
-            $sql = "SELECT * FROM teams_groups WHERE group_id =$GG";
+            $sql = "SELECT * FROM teams WHERE group_id =$GG";
             $query = $db->query($sql);
             $teams_perGroup = $query->fetchAll(PDO::FETCH_ASSOC);
 
             for ($i = 0; $i < $Group_wedstrijdAmount; $i++) {
-                $team1 = $teams_perGroup[$i]['team_id'];
+                $team1 = $teams_perGroup[$i]['id'];
                 for ($x = $i + 1; $x < $NTeamsPerGroup; $x++) {
-                    $team2 = $teams_perGroup[$x]['team_id'];
+                    $team2 = $teams_perGroup[$x]['id'];
 
                     $sql = "INSERT INTO wedstrijden (team1, team2, start, tijd, rust, veld, scheids_id) VALUES (:team1, :team2, :start, :tijd, :rust, :veld, :scheids_id)";
                     $prepare = $db->prepare($sql);
