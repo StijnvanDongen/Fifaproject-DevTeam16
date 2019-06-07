@@ -16,14 +16,13 @@ if (!isset($_SESSION['id'])) {
     echo "<h4>Welcome {$account['userName']}</h4>";
 }
 
-$sql = "SELECT DISTINCT(group_id) FROM teams_groups";
+$sql = "SELECT DISTINCT(group_id) FROM teams";
 $query = $db->query($sql);
 $groups = $query->fetchAll(PDO::FETCH_ASSOC);
 foreach ($groups as $group) {
     $group_id = $group["group_id"];
 
-    $sql = "SELECT teams_groups.team_id,teams.teamName,teams.teamScore FROM teams_groups, teams 
-                    where teams_groups.team_id=teams.id and group_id =$group_id";
+    $sql = "SELECT * FROM teams WHERE id=teams.id and group_id =$group_id";
     $query = $db->query($sql);
     $teams_perGroup = $query->fetchAll(PDO::FETCH_ASSOC);
 
